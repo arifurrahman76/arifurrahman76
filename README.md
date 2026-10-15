@@ -1,83 +1,49 @@
-# Md. Arifur Rahman — Personal Academic Website
+# Md. Arifur Rahman — Personal Academic Website (Dark "Zone of Inhibition" Theme)
 
-Personal portfolio for Md. Arifur Rahman, veterinarian and researcher in poultry disease diagnostics, veterinary microbiology and molecular diagnostics (Dhaka, Bangladesh).
+Dark, single-page portfolio for Md. Arifur Rahman, veterinarian and researcher in poultry disease diagnostics, veterinary microbiology and molecular diagnostics (Dhaka, Bangladesh).
 
-Single-page static site with no build step and no dependencies. It features a DNA-themed design (animated double helix, scrolling A/T/G/C strip, helix-cutout headings), optional sound effects, light and dark themes, and a filterable publication list where every entry is a link.
+## Theme
+
+The design is built around an antibiotic susceptibility test:
+
+- Your photo sits on the antibiotic disc in the middle of a live Petri dish, with a dashed ring marking the zone of inhibition.
+- Glowing bacterial colonies grow around the zone. Hover over a colony to speed it up, or click the plate to inoculate new ones.
+- Section dividers are gel electrophoresis lanes.
+- Each publication has a glowing "band" whose length reflects its recency.
+
+No build step and no dependencies.
 
 ## Files
 
 | File | Purpose |
 |------|---------|
-| `index.html` | The whole site: HTML, CSS and JavaScript in one file |
-| `portrait.jpg` | Profile photo shown in the hero section |
+| `index.html` | The whole site: HTML, CSS and JavaScript |
+| `portrait.jpg` | Profile photo shown on the antibiotic disc |
 | `README.md` | This file |
 
 ## Deploy on GitHub Pages
 
-1. Create a new public repository named `<your-github-username>.github.io`.
+1. Create a public repository named `<your-github-username>.github.io`.
 2. Upload `index.html`, `portrait.jpg` and `README.md` to the repository root.
-3. Go to **Settings → Pages**, set **Source** to **Deploy from a branch**, select `main` and `/ (root)`, then save.
-4. After a minute or two the site is live at `https://<your-github-username>.github.io`.
+3. Go to **Settings → Pages**, set **Source** to **Deploy from a branch**, choose `main` and `/ (root)`, then save.
+4. The site goes live at `https://<your-github-username>.github.io` after a minute or two.
 
-## Preview locally
-
-Open `index.html` in any browser. To serve it over HTTP instead, run this in the project folder:
-
-```bash
-python3 -m http.server 8000
-```
-
-Then visit `http://localhost:8000`.
+To preview locally, run `python3 -m http.server 8000` in the folder and open `http://localhost:8000`.
 
 ## Customising
 
-All content is edited directly in `index.html`.
-
-**Publications.** Near the top of the `<script>` block, the `PUBS` array holds published papers and `REV` holds manuscripts under review. Each entry looks like this:
-
-```js
-{y:2026, t:"Paper title", j:"Journal, volume, pages", a:"Authors"}
-```
-
-Links are generated automatically as Google Scholar searches for the title. To use a direct link, replace the `.map(p=>({...p,url:sc(p.t)}))` step, or add a `url` to an entry and change the mapping to keep it, for example:
-
-```js
-].map(p=>({...p, url: p.url || sc(p.t)}))
-```
-
-Then add `url:"https://doi.org/..."` to each entry.
-
-**Skills and interests.** Edit the `SKILLS` object and the `INT` array in the same script block.
-
-**Education, experience, awards, contact.** These are plain HTML sections in `index.html`. Search for the section `id` (`education`, `experience`, `awards`, `contact`) and edit the text.
-
-**Profile links.** In the Contact section, replace the Google Scholar, ResearchGate and LinkedIn search links with your actual profile URLs.
-
-**Photo.** Replace `portrait.jpg` with a new image of the same filename. A portrait with a 4:5 aspect ratio works best.
-
-**Colours.** The palette is defined as CSS variables at the top of the `<style>` block (`--a`, `--b`, `--c`, `--d`). The four accent colours match the A, T, G, C bases in the sequence strip.
-
-**Adding a CV download.** Upload your CV as `cv.pdf` to the repository, then add this to the nav or contact section:
-
-```html
-<a href="cv.pdf" download>Download CV ↓</a>
-```
-
-## Features
-
-- Responsive layout for desktop and mobile
-- Light and dark themes, following the system setting with a manual toggle
-- Sound effects built with the Web Audio API (no audio files). They are off by default and can be switched on with the speaker button in the nav bar.
-- Respects the `prefers-reduced-motion` setting by disabling animations
-- Year filters for the publication list (All, 2026, 2025, Under review)
-
-## Browser support
-
-Works in current versions of Chrome, Edge, Firefox and Safari.
+- **Publication links:** every entry opens a Google Scholar search for its title. In the `PUBS` array in the script, add `url:"https://doi.org/..."` to an entry to use a direct link instead.
+- **Skills and interests:** edit the `SK` object and `INT` array in the script.
+- **Education, experience, awards, contact:** plain HTML sections in `index.html`. Search for the section `id`.
+- **Profile links:** replace the Scholar, ResearchGate and LinkedIn search links in the Contact section with your real profile URLs.
+- **Colours:** change the CSS variables at the top of the `<style>` block (`--g`, `--am`, `--mg`, `--cy`).
+- **Dish behaviour:** in the script, `spawn()` creates colonies, `ZONE` sets the inhibition radius, and the loop cap (`cols.length<90`) limits colony count.
+- **CV download:** upload `cv.pdf` to the repository and add `<a href="cv.pdf" download>Download CV ↓</a>` to the Contact section.
 
 ## Notes
 
-- Referee details from the CV are intentionally not published on the site.
+- The page respects `prefers-reduced-motion`, so colonies appear fully grown and animations are off.
+- Referee details from the CV are intentionally not published.
 - Manuscripts marked "Under review" are not published papers.
 
 ## License
